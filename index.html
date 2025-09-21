@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>البحث عن المعازيم</title>
+  <title>البحث وتعديل المعازيم</title>
   <style>
     body {
       font-family: "Tahoma", sans-serif;
@@ -17,7 +17,7 @@
       margin-bottom: 20px;
       font-size: 24px;
     }
-    input {
+    input, select {
       padding: 10px;
       width: 300px;
       max-width: 90%;
@@ -34,6 +34,16 @@
       width: 300px;
       text-align: right;
     }
+    .edit-input {
+      width: 140px;
+      margin-left: 10px;
+      padding: 5px;
+    }
+    .edit-button {
+      padding: 5px 10px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
     .no-results {
       color: #777;
       margin-top: 10px;
@@ -41,13 +51,14 @@
   </style>
 </head>
 <body>
-  <h1>🔎 البحث عن المعازيم</h1>
+  <h1>🔎 البحث وتعديل المعازيم</h1>
   <input type="text" id="search" placeholder="اكتب الاسم هنا..." />
 
   <div id="results"></div>
 
   <script>
-    const guests = [
+    // بيانات الضيوف الافتراضية أو المحفوظة من localStorage
+    const defaultGuests = [
       { name: "مازن", table: 1 },
       { name: "انور", table: 1 },
       { name: "عبدو", table: 1 },
@@ -58,30 +69,82 @@
       { name: "الجص", table: 3 },
     ];
 
+    let guests = JSON.parse(localStorage.getItem("guests")) || defaultGuests;
+
     const searchInput = document.getElementById("search");
     const resultsDiv = document.getElementById("results");
 
+    function saveGuests() {
+      localStorage.setItem("guests", JSON.stringify(guests));
+    }
+
+    // إنشاء قائمة الطاولات المتاحة لاستخدامها في select
+    function getTables() {
+      return [...new Set(guests.map(g => g.table))].sort((a,b)=>a-b);
+    }
+
+    function displayAllTables() {
+      resultsDiv.innerHTML = "";
+      const tables = getTables();
+      tables.forEach(tableNum => {
+        const tableGuests = guests.filter(g => g.table === tableNum);
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<p>الطاولة رقم ${tableNum}</p>
+                          ${tableGuests.map(g => generateGuestEditHTML(g)).join("<br>")}`;
+        resultsDiv.appendChild(card);
+      });
+    }
+
+    function generateGuestEditHTML(guest) {
+      return `<span>الاسم: <input class="edit-input" type="text" value="${guest.name}" data-name="${guest.name}"></span>
+              <span>الطاولة: 
+                <select class="edit-input" data-name="${guest.name}">
+                  ${getTables().map(t => `<option value="${t}" ${t===guest.table?'selected':''}>${t}</option>`).join("")}
+                </select>
+              </span>
+              <button class="edit-button" onclick="updateGuest('${guest.name}', this)">حفظ</button>`;
+    }
+
+    function updateGuest(originalName, button) {
+      const parent = button.parentElement;
+      const newNameInput = parent.querySelector('input[type="text"]');
+      const newTableSelect = parent.querySelector('select');
+      const newName = newNameInput.value.trim();
+      const newTable = parseInt(newTableSelect.value);
+
+      if (!newName) return alert("الاسم لا يمكن أن يكون فارغاً");
+
+      // تحديث الضيف
+      const guest = guests.find(g => g.name === originalName);
+      guest.name = newName;
+      guest.table = newTable;
+      saveGuests();
+      searchInput.value ? searchInput.dispatchEvent(new Event('input')) : displayAllTables();
+    }
+
+    displayAllTables();
+
     searchInput.addEventListener("input", function () {
       const query = this.value.trim();
-      resultsDiv.innerHTML = "";
+      if (!query) {
+        displayAllTables();
+        return;
+      }
 
-      if (query) {
-        // البحث عن الشخص
-        const foundGuest = guests.find(g => g.name.includes(query));
-        
-        if (foundGuest) {
-          // البحث عن جميع الأشخاص على نفس الطاولة
-          const sameTableGuests = guests.filter(g => g.table === foundGuest.table);
-          
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `<p>الاسم: <strong>${foundGuest.name}</strong></p>
-                            <p>الطاولة رقم ${foundGuest.table}</p>
-                            <p>أسماء الأشخاص على نفس الطاولة: ${sameTableGuests.map(g => g.name).join(", ")}</p>`;
-          resultsDiv.appendChild(card);
-        } else {
-          resultsDiv.innerHTML = `<p class="no-results">لا يوجد نتائج</p>`;
-        }
+      resultsDiv.innerHTML = "";
+      const foundGuest = guests.find(g => g.name.includes(query));
+      if (foundGuest) {
+        const sameTableGuests = guests.filter(g => g.table === foundGuest.table);
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<p>الاسم: ${generateGuestEditHTML(foundGuest)}</p>
+                          <p>الطاولة رقم ${foundGuest.table}</p>
+                          <p>الأشخاص على نفس الطاولة:</p>
+                          ${sameTableGuests.map(g => generateGuestEditHTML(g)).join("<br>")}`;
+        resultsDiv.appendChild(card);
+      } else {
+        resultsDiv.innerHTML = `<p class="no-results">لا يوجد نتائج</p>`;
       }
     });
   </script>
