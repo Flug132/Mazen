@@ -135,7 +135,7 @@
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
-          <div class="table-title">الاسم: ${foundGuest.name}</div>
+          <div class="table-title">الاسم: ${foundGuest.name} | الطاولة رقم ${foundGuest.table}</div>
           <div class="guest-list">
             ${sameTableGuests.map(g => `<div class="guest-item">${g.name}</div>`).join("")}
           </div>
