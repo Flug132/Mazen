@@ -66,15 +66,19 @@
       resultsDiv.innerHTML = "";
 
       if (query) {
-        const filtered = guests.filter(g => g.name.includes(query));
-        if (filtered.length > 0) {
-          filtered.forEach(guest => {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.innerHTML = `<p><strong>${guest.name}</strong></p>
-                              <p>الطاولة رقم ${guest.table}</p>`;
-            resultsDiv.appendChild(card);
-          });
+        // البحث عن الشخص
+        const foundGuest = guests.find(g => g.name.includes(query));
+        
+        if (foundGuest) {
+          // البحث عن جميع الأشخاص على نفس الطاولة
+          const sameTableGuests = guests.filter(g => g.table === foundGuest.table);
+          
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `<p>الاسم: <strong>${foundGuest.name}</strong></p>
+                            <p>الطاولة رقم ${foundGuest.table}</p>
+                            <p>أسماء الأشخاص على نفس الطاولة: ${sameTableGuests.map(g => g.name).join(", ")}</p>`;
+          resultsDiv.appendChild(card);
         } else {
           resultsDiv.innerHTML = `<p class="no-results">لا يوجد نتائج</p>`;
         }
