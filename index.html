@@ -7,7 +7,10 @@
   <style>
     body {
       font-family: "Tahoma", sans-serif;
-      background: #f3f6fa;
+      background-image: url('IMG_2488.jpeg'); /* الخلفية */
+      background-size: cover; 
+      background-position: center;
+      background-attachment: fixed; 
       margin: 0;
       padding: 20px;
       display: flex;
@@ -20,7 +23,7 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      max-width: 1000px; /* أوسع */
+      max-width: 1000px; 
       margin-bottom: 20px;
     }
 
@@ -29,6 +32,8 @@
       margin: 0;
       flex: 1;
       text-align: center;
+      color: #fff;
+      text-shadow: 0 0 5px #000;
     }
 
     header img {
@@ -43,7 +48,7 @@
     input {
       padding: 12px;
       width: 100%;
-      max-width: 900px; /* أوسع */
+      max-width: 900px; 
       font-size: 16px;
       margin-bottom: 20px;
       text-align: right;
@@ -53,13 +58,13 @@
     }
 
     .card {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 12px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       padding: 15px;
       margin-bottom: 15px;
       width: 100%;
-      max-width: 900px; /* أوسع */
+      max-width: 900px; 
       text-align: right;
     }
 
@@ -75,7 +80,6 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      columns: 2; /* تقسيم عمودين لو الأسماء كثيرة */
     }
 
     .card ul li {
@@ -91,18 +95,18 @@
     }
 
     .no-results {
-      color: #777;
+      color: #fff;
       margin-top: 10px;
+      text-shadow: 0 0 5px #000;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <!-- صور من روابط GitHub مباشرة -->
-    <img src="https://raw.githubusercontent.com/Flug132/Mazen/main/7bda399c-8fed-448d-95c4-494d3a03c69c.jpeg" alt="صورة يسار">
+    <img src="7bda399c-8fed-448d-95c4-494d3a03c69c.jpeg" alt="صورة يسار">
     <h1>🔎 البحث عن المعازيم</h1>
-    <img src="https://raw.githubusercontent.com/Flug132/Mazen/main/IMG_2517.jpeg" alt="صورة يمين">
+    <img src="IMG_2517.jpeg" alt="صورة يمين">
   </header>
 
   <input type="text" id="search" placeholder="اكتب الاسم هنا..." />
@@ -124,7 +128,7 @@
       11:["غزوة فروح","رولان فروح","روجيه كاترين","اثينا البطرس","نايا البطرس","مجد ملحم","جورج عراضي"],
       12:["حكيم سلوم","بديع سلوم","حازم الوكيل","سامي سلوم","كنعان سلوم","جورج سلوم","حليم سلوم","الياس سلوم"],
       13:["اديب داوود","صادر السعد","حسان نعمة","اديب ريشه","فريز البارودي","اياد سنكري","ريمون اسكاف","حسان الديب","سميح موسى","رامي مويس","جرجس عراضي","واصل الخابوري"],
-      14:["فايز ابو سعد","انور ابو سعد","انور بنيات","عصام ديوب","رائد سعيفان","امجد النادر","طوني بولص"],
+      14:["فايز ابو سعد","انور بنيات","عصام ديوب","رائد سعيفان","امجد النادر","طوني بولص"],
       15:["مرهف توما","ريمون توما","سيمون توما","ماهر توما","غزوان الصايغ","سهيل بنود","شادي ابو زيد","فادي ابو زيد"],
       16:["سيمون دويب","ريمون دويب","مخاييل دويب","عهد العريض","سومر دويب","رامي دويب"],
       17:["جبر حنا","جول يعقوب","سامر يعقوب","صبري فروح","فهد فرحة"],
@@ -141,7 +145,7 @@
       for (let table in tables) {
         const card = document.createElement("div");
         card.className = "card";
-        card.innerHTML = `<h3>🪑 الطاولة رقم ${table}</h3>
+        card.innerHTML = `<h3>الطاولة رقم ${table}</h3>
                           <ul>${tables[table].map(n => `<li>${n}</li>`).join("")}</ul>`;
         resultsDiv.appendChild(card);
       }
@@ -160,7 +164,7 @@
             found = true;
             const card = document.createElement("div");
             card.className = "card";
-            card.innerHTML = `<h3>🪑 الطاولة رقم ${table}</h3>
+            card.innerHTML = `<h3>الطاولة رقم ${table}</h3>
                               <ul>${names.map(n => n.includes(query) ? `<li class="highlight">${n}</li>` : `<li>${n}</li>`).join("")}</ul>`;
             resultsDiv.appendChild(card);
           }
