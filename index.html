@@ -20,7 +20,7 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      max-width: 600px;
+      max-width: 1000px; /* أوسع */
       margin-bottom: 20px;
     }
 
@@ -43,7 +43,7 @@
     input {
       padding: 12px;
       width: 100%;
-      max-width: 500px;
+      max-width: 900px; /* أوسع */
       font-size: 16px;
       margin-bottom: 20px;
       text-align: right;
@@ -59,7 +59,7 @@
       padding: 15px;
       margin-bottom: 15px;
       width: 100%;
-      max-width: 500px;
+      max-width: 900px; /* أوسع */
       text-align: right;
     }
 
@@ -75,6 +75,7 @@
       list-style: none;
       padding: 0;
       margin: 0;
+      columns: 2; /* تقسيم عمودين لو الأسماء كثيرة */
     }
 
     .card ul li {
@@ -98,9 +99,10 @@
 <body>
 
   <header>
-    <img src="Mazen/7bda399c-8fed-448d-95c4-494d3a03c69c.jpeg" alt="صورة يسار">
+    <!-- صور من روابط GitHub مباشرة -->
+    <img src="https://raw.githubusercontent.com/Flug132/Mazen/main/7bda399c-8fed-448d-95c4-494d3a03c69c.jpeg" alt="صورة يسار">
     <h1>🔎 البحث عن المعازيم</h1>
-    <img src="Mazen/IMG_2517.jpeg" alt="صورة يمين">
+    <img src="https://raw.githubusercontent.com/Flug132/Mazen/main/IMG_2517.jpeg" alt="صورة يمين">
   </header>
 
   <input type="text" id="search" placeholder="اكتب الاسم هنا..." />
