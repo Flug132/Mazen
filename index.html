@@ -22,8 +22,8 @@
 
     input {
       padding: 12px;
-      width: 300px;
-      max-width: 90%;
+      width: 320px;
+      max-width: 95%;
       font-size: 16px;
       margin-bottom: 25px;
       border-radius: 8px;
@@ -43,7 +43,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       padding: 20px;
       margin-bottom: 15px;
-      width: 320px;
+      width: 360px;
       text-align: right;
       transition: transform 0.2s, box-shadow 0.2s;
     }
@@ -88,15 +88,26 @@
   <div id="results"></div>
 
   <script>
-    const guests = [
-      { name: "مازن", table: 1 },
-      { name: "انور", table: 1 },
-      { name: "عبدو", table: 1 },
-      { name: "محمد", table: 2 },
-      { name: "حسن", table: 2 },
-      { name: "عيسى", table: 3 },
-      { name: "حسام", table: 3 },
-      { name: "الجص", table: 3 },
+    const tables = [
+      { number: 1, name: "بيت دويب ١", guests: ["جدلان دويب","باسل دويب","امجد دويب","رئيف فروح","فراس دويب","سامي دويب","حنا دويب","حسان دويب","ابراهيم جميل دويب","طوني دويب","سومر اكرم دويب","بيير دويب"] },
+      { number: 2, name: "عمات العروس", guests: ["عيسى العجي","بشار منصور","رمزي اسعيفان","فيرلي اسعيفان","نهلة دويب","جورج الزودة","فادي منصور","بطرس ضاهر","مروة نجيب"] },
+      { number: 3, name: "عمام العروس", guests: ["سمير دويب","بشار دويب","طلال دويب","عماد دويب","حازم نصور","منهل ابو حامضة","جميل فتيح","مروان فرحة","بطرس فروح","فريال ابو سعد"] },
+      { number: 4, name: "اهل العروس", guests: ["امين دويب","جورجيت اسكيف","يوسف حطاب","رئيف اسعد","مالك مريعبي","صباح عبدلكي","اديب اسعيفان","الياس اسعد","عارف سعادة","ميشيل درة"] },
+      { number: 5, name: "اليان دويب", guests: ["اليان دويب","طوني ليوس","ميلاد ابراهيم","مازن فروح","مجد سنكري","حسان حداد","ثائر اسكاف"] },
+      { number: 6, name: "الياس دويب", guests: ["الياس دويب","بطرس دويب","ماريو عدبة","جرجس شاهين","هاني العدالله","حسام دعبول","صلاح العجوز","مأمون سنكري"] },
+      { number: 7, name: "رفقات حبيب", guests: ["حبيب دويب","مالك شحادة","ايميل الاسعد","حسام جبور","منصور عبد المسيح","جوني الصايغ","ريان اسكاف","صفوان عراضي","سامر شهدا","امير فرحة","نوفل يعقوب","باسل يعقوب","هاني النادر"] },
+      { number: 8, name: "رفقات العريس", guests: ["مازن غنوم","عبدو غنوم","قوندراق","عصام وسوف","رعد ابنيات","فهد ضاهر","الياس سلوم","جوني غنوم","هاني نعمة","ورد نجيب","ميري بشلاوي","مجد نصار","حنا السعد","اليان فروح","جاكو الرادشي","ايهم شهدا"] },
+      { number: 9, name: "", guests: ["جورج محفوض","فهد ملحم","فهد نعمة","ليث سلوم","ناجي ليوس","بيير وردة","اديب سلوم","بولص بولص","ابراهيم الجرجس","ايهم الجرجس","الياس شاهين","فضل قوندراق","فضل صوان"] },
+      { number: 10, name: "", guests: ["رأفت بشور","سامر حنا","منذر العبدالله","حنا ساكو","فادي ديوب","عيسى فرحة","فهد الناصر","ابراهيم حنا","وائل فرحة","انور سنكري"] },
+      { number: 11, name: "", guests: ["غزوة فروح","رولان فروح","روجيه كاترين","اثينا البطرس","نايا البطرس","مجد ملحم","جورج عراضي"] },
+      { number: 12, name: "", guests: ["حكيم سلوم","بديع سلوم","حازم الوكيل","سامي سلوم","كنعان سلوم","جورج سلوم","حليم سلوم","الياس سلوم"] },
+      { number: 13, name: "", guests: ["اديب داوود","صادر السعد","حسان نعمة","اديب ريشه","فريز البارودي","اياد سنكري","ريمون اسكاف","حسان الديب","سميح موسى","رامي مويس","جرجس عراضي","واصل الخابوري"] },
+      { number: 14, name: "", guests: ["فايز ابو سعد","انور بنيات","عصام ديوب","رائد سعيفان","امجد النادر","طوني بولص"] },
+      { number: 15, name: "", guests: ["مرهف توما","ريمون توما","سيمون توما","ماهر توما","غزوان الصايغ","سهيل بنود","شادي ابو زيد","فادي ابو زيد"] },
+      { number: 16, name: "بيت دويب ٢", guests: ["سيمون دويب","ريمون دويب","مخاييل دويب","عهد العريض","سومر دويب","رامي دويب"] },
+      { number: 17, name: "جيران العروس", guests: ["جبر حنا","جول يعقوب","سامر يعقوب","صبري فروح"] },
+      { number: 18, name: "رفقات كيندا", guests: ["ميشو الديب","فاخر درة","مجد عيسى","باسل الاشقر"] },
+      { number: 19, name: "", guests: ["ليث ابو صفرة","عبد دعبول","مجد مخول","الياس سعيفان"] }
     ];
 
     const searchInput = document.getElementById("search");
@@ -104,16 +115,13 @@
 
     function displayAllTables() {
       resultsDiv.innerHTML = "";
-      const tables = [...new Set(guests.map(g => g.table))].sort((a,b)=>a-b);
-
-      tables.forEach(tableNum => {
-        const tableGuests = guests.filter(g => g.table === tableNum);
+      tables.forEach(t => {
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
-          <div class="table-title">الطاولة رقم ${tableNum}</div>
+          <div class="table-title">الطاولة ${t.number} ${t.name ? "(" + t.name + ")" : ""}</div>
           <div class="guest-list">
-            ${tableGuests.map(g => `<div class="guest-item">${g.name}</div>`).join("")}
+            ${t.guests.map(g => `<div class="guest-item">${g}</div>`).join("")}
           </div>
         `;
         resultsDiv.appendChild(card);
@@ -124,20 +132,32 @@
       const query = this.value.trim();
       resultsDiv.innerHTML = "";
 
-      if(!query) {
+      if (!query) {
         displayAllTables();
         return;
       }
 
-      const foundGuest = guests.find(g => g.name.includes(query));
-      if(foundGuest) {
-        const sameTableGuests = guests.filter(g => g.table === foundGuest.table);
+      let foundTable = null;
+      let foundGuest = null;
+
+      for (const table of tables) {
+        const guest = table.guests.find(g => g.includes(query));
+        if (guest) {
+          foundTable = table;
+          foundGuest = guest;
+          break;
+        }
+      }
+
+      if (foundTable) {
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
-          <div class="table-title">الاسم: ${foundGuest.name} | الطاولة رقم ${foundGuest.table}</div>
+          <div class="table-title">الطاولة ${foundTable.number} ${foundTable.name ? "(" + foundTable.name + ")" : ""}</div>
+          <div><strong>الضيف:</strong> ${foundGuest}</div>
+          <hr>
           <div class="guest-list">
-            ${sameTableGuests.map(g => `<div class="guest-item">${g.name}</div>`).join("")}
+            ${foundTable.guests.map(g => `<div class="guest-item">${g}</div>`).join("")}
           </div>
         `;
         resultsDiv.appendChild(card);
