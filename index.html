@@ -10,7 +10,7 @@
       background-image: url('IMG_2488.jpeg'); /* الخلفية */
       background-size: cover; 
       background-position: center;
-      background-attachment: fixed; 
+      background-attachment: fixed; /* تبقى ثابتة عند التمرير */
       margin: 0;
       padding: 20px;
       display: flex;
@@ -80,10 +80,12 @@
       list-style: none;
       padding: 0;
       margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* يوزع الأسماء في أعمدة */
+      gap: 5px 30px; /* مسافة بين الأسماء */
     }
 
     .card ul li {
-      padding: 4px 0;
       font-size: 15px;
     }
 
