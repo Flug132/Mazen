@@ -17,12 +17,12 @@
       min-height: 100vh;
     }
 
-    /* طبقة فوق الخلفية لتخفيف الصورة */
+    /* طبقة شفافة فوق الخلفية لتخفيف الصورة */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255,255,255,0.6); /* لون أبيض نصف شفاف */
+      background: rgba(255,255,255,0.6); /* أبيض نصف شفاف */
       z-index: -1;
     }
 
@@ -65,10 +65,10 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    /* حاوية للطاولات بحيث كل صف يحتوي طاولتين */
+    /* الحاوية الرئيسية للطاولات */
     .tables-container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      grid-template-columns: repeat(2, 1fr); /* عمودين ثابتين */
       gap: 20px;
       max-width: 1200px;
       margin: 0 auto;
